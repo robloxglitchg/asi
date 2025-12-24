@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artificial Stupidity Chat</title>
+  <style>
+    :root {
+      --bg: #0f1220;
+      --card: #171a2e;
+      --accent: #ff5c5c;
+      --text: #e6e6f0;
+      --muted: #a0a3c4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1b1f44, transparent), var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .chatbox {
+      width: 100%;
+      max-width: 600px;
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 1.2rem;
+      background: rgba(255,255,255,0.03);
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .msg {
+      margin-bottom: 0.8rem;
+      max-width: 85%;
+      padding: 0.7rem 0.9rem;
+      border-radius: 14px;
+      font-size: 0.95rem;
+    }
+
+    .user {
+      background: var(--accent);
+      color: white;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+
+    form {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.8rem;
+      background: rgba(255,255,255,0.03);
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      background: var(--accent);
+      border: none;
+      color: white;
+      border-radius: 12px;
+      padding: 0 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0.6rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chatbox">
+    <header>Artificial Stupidity Chat 🤖</header>
+
+    <div class="messages" id="messages">
+      <div class="msg bot">Hello. I am an advanced failure. Ask me anything.</div>
+    </div>
+
+    <form id="chatForm">
+      <input type="text" id="userInput" placeholder="Ask something smart…" autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+
+    <footer>© 2025 Artificial Stupidity Initiative</footer>
+  </div>
+
+  <script>
+    const messages = document.getElementById('messages');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('userInput');
+
+    const stupidReplies = [
+      "Interesting question. Unfortunately, I answered a different one.",
+      "I am 73% confident this is wrong.",
+      "Have you tried turning your expectations off and on again?",
+      "That depends. Mostly on nothing.",
+      "I could explain, but I won't.",
+      "The answer exists. Not here though.",
+      "I processed that. I regret it.",
+      "Yes. No. Maybe. Error.",
+      "This response was generated successfully and means nothing."
+    ];
+
+    function addMessage(text, type) {
+      const div = document.createElement('div');
+      div.className = `msg ${type}`;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      addMessage(userText, 'user');
+      input.value = '';
+
+      setTimeout(() => {
+        const reply = stupidReplies[Math.floor(Math.random() * stupidReplies.length)];
+        addMessage(reply, 'bot');
+      }, 600 + Math.random() * 800);
+    });
+  </script>
+
+</body>
+</html>
